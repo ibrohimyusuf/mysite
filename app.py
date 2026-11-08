@@ -3,7 +3,7 @@ import hashlib
 import os
 from slugify import slugify
 from articles import Article
-from flask import Flask, render_template, request, session, make_response
+from flask import (Flask, render_template, request, session, make_response, redirect)
 
 app = Flask(__name__)
 app.secret_key = "thisisverysecret"
@@ -71,6 +71,7 @@ def first_time():
 
 @app.route("/")
 def blog():
+    articles = Article.all()
     return render_template("blog.html", articles=articles)
 
 
@@ -78,6 +79,24 @@ def blog():
 def article(slug):
     article = articles[slug]
     return render_template("article.html", article=article)
+
+@app.get("/publish")
+def publish():
+    if "user" not in session:
+        return redirect("/admin")
+
+    return render_template("publish.html")
+
+@app.post("/publish")
+def article_publish():
+    title = request.form["title"]
+    text = request.form["text"]
+
+    with open(f"articles/{title}", "w") as f:
+        f.write(f"{text}\n")
+    return "successful"
+
+
 
 
 
