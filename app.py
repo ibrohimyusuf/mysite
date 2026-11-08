@@ -1,12 +1,22 @@
 import os
+from slugify import slugify
 from flask import Flask, render_template
 
 app = Flask(__name__)
-articles = os.listdir("articles")
+
+def read_articles():
+    articles = os.listdir("articles")
+    slug_articles = {}
+
+    for article in articles:
+        slug = slugify(article)
+        slug_articles[slug] = article
+    return slug_articles
 
 
 @app.route("/")
 def blog():
+    articles = read_articles()
     return render_template("blog.html", articles=articles)
 
 
