@@ -7,8 +7,9 @@
 </head>
 <body>
     <h1>Maqolalar</h1>
-    <a href="/blog/birinchi-maqolar">Birinchi Maqolam</a><br>
-    <a href="/blog/ikkinchi-maqolar">Ikkinchi Maqolam</a><br>
-    <a href="/blog/uchinchi-maqolar">Uchinchi Maqolam</a>
+
+    {% for article in articles%}
+    <a href="/blog/birinchi-maqolar">{{ article }}</a><br>
+    {% endfor %}
 </body>
 </html>
