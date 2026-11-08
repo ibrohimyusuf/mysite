@@ -1,20 +1,13 @@
-from flask import Flask, request, render_template
-
+from flask import Flask, render_template
 app = Flask(__name__)
 
 @app.route("/")
-def index():
-    return render_template("add.html")
+def blog():
+    return render_template("blog.html")
 
-@app.post("/add")
-def adder():
-    a = request.form.get("a", "")
-    b = request.form.get("b", "")
-    a = int(a)
-    b = int(b)
-
-    result = a + b
-    return render_template("result.html", result=result)
+@app.route("/blog/<slug>")
+def article(slug):
+    return render_template("article.html", slug=slug)
 
 if __name__ == "__main__":
-    app.run(port=8000, debug=True)
+    app.run(debug=True)
