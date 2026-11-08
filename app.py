@@ -14,15 +14,20 @@ def read_articles():
     return slug_articles
 
 
+
+articles = read_articles()
+
 @app.route("/")
 def blog():
-    articles = read_articles()
     return render_template("blog.html", articles=articles)
 
 
 @app.route("/blog/<slug>")
 def article(slug):
-    return render_template("article.html", slug=slug)
+    title = articles[slug] 
+    with open(f"articles/{title}") as file:
+        content = file.read()
+    return render_template("article.html", title=title, content=content)
 
 
 
