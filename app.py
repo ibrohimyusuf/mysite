@@ -15,7 +15,7 @@ def blog():
 
 @app.route("/blog/<slug>")
 def article(slug):
-    article = article[slug]
+    article = articles[slug]
     return render_template("article.html", article=article)
 
 
