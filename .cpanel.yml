@@ -1,0 +1,7 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/ibroh754/somindful/
+    - /bin/cp -R app.py articles.py articles templates passenger_wsgi.py requirements.txt $DEPLOYPATH
+    - mkdir -p $DEPLOYPATH/tmp
+    - touch $DEPLOYPATH/tmp/restart.txt
