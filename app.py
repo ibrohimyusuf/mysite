@@ -77,6 +77,8 @@ def blog():
 
 @app.route("/blog/<slug>")
 def article(slug):
+    if slug not in articles:
+        return "article not found", 404
     article = articles[slug]
     return render_template("article.html", article=article)
 
